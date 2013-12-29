@@ -132,6 +132,7 @@ void MyItemModel::rearrange()
             grid[randRow][randColumn] = temp;
         }
     }
+    last_selected_row = last_selected_column = -1;
     refresh();
 }
 
