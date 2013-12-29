@@ -30,8 +30,7 @@ MyItemModel::~MyItemModel()
 
 void MyItemModel::initialze()
 {
-
-    // 随机生成各种颜色
+    // 生成各种颜色
     for ( int r = 0; r < rowCount; ++ r)
     {
         for ( int c = 0; c < columnCount; ++ c)
@@ -49,20 +48,29 @@ void MyItemModel::clickSlot(const QModelIndex &index)
 
     if ( grid[current_selected_row][current_selected_column] == Qt::transparent )
     {
+        emit showMessage(tr("Error: cannot select empty grid."));
         tableView->clearSelection();
         return;
     }
 
     if ( last_selected_row == current_selected_row && last_selected_column == current_selected_column )
     {
+        emit clearMessage();
         tableView->clearSelection();
         last_selected_row = last_selected_column = -1;
         current_selected_row = current_selected_column = -1;
     }
     else
     {
-        if (selectionCorrect())
+        if ( last_selected_row < 0 )
         {
+            emit clearMessage();
+            last_selected_row = current_selected_row;
+            last_selected_column = current_selected_column;
+        }
+        else if (selectionCorrect())
+        {
+            emit showMessage(tr("Successfully clear a pair of grid."));
             grid[last_selected_row][last_selected_column] = grid[current_selected_row][current_selected_column] = Qt::transparent;
             last_selected_row = last_selected_column = -1;
             current_selected_row = current_selected_column = -1;
@@ -76,6 +84,7 @@ void MyItemModel::clickSlot(const QModelIndex &index)
         }
         else
         {
+            emit showMessage(tr("Error: cannot connect"));
             last_selected_row = current_selected_row;
             last_selected_column = current_selected_column;
         }
@@ -138,9 +147,6 @@ void MyItemModel::rearrange()
 
 bool MyItemModel::selectionCorrect()
 {
-    if ( last_selected_row < 0 )
-        return false;
-
     Q_ASSERT( current_selected_row >= 0 );
     Q_ASSERT( current_selected_row < rowCount );
     Q_ASSERT( current_selected_column >= 0 );

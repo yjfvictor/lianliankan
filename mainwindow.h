@@ -15,6 +15,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+public slots:
+    void showMessage(const QString & text, const int timeout);
+    void clearMessage();
+
 private:
     static int rows, cols;
     MainTableView * mainTableView;

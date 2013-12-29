@@ -47,11 +47,24 @@ MainWindow::MainWindow(QWidget *parent)
     model->initialze();
     connect(mainTableView, SIGNAL(clicked(QModelIndex)), model, SLOT(clickSlot(QModelIndex)) );
 
+    // 连接模型的信号与本窗口的槽
+    connect(model, SIGNAL(showMessage(QString,int)), this, SLOT(showMessage(QString,int)));
+    connect(model, SIGNAL(clearMessage()), this, SLOT(clearMessage()));
+
     // 设置窗口大小
     resize(700, 300);
-
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::showMessage(const QString &text, const int timeout)
+{
+    statusBar->showMessage(text, timeout);
+}
+
+void MainWindow::clearMessage()
+{
+    statusBar->clearMessage();
 }

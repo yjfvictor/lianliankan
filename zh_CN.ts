@@ -33,14 +33,29 @@
 <context>
     <name>MyItemModel</name>
     <message>
-        <location filename="myitemmodel.cpp" line="74"/>
+        <location filename="myitemmodel.cpp" line="51"/>
+        <source>Error: cannot select empty grid.</source>
+        <translation>错误：不能选择空白格子。</translation>
+    </message>
+    <message>
+        <location filename="myitemmodel.cpp" line="73"/>
+        <source>Successfully clear a pair of grid.</source>
+        <translation>成功连上一对。</translation>
+    </message>
+    <message>
+        <location filename="myitemmodel.cpp" line="82"/>
         <source>Lian Lian Kan</source>
         <translation>连连看</translation>
     </message>
     <message>
-        <location filename="myitemmodel.cpp" line="74"/>
+        <location filename="myitemmodel.cpp" line="82"/>
         <source>Game over</source>
         <translation>游戏结束</translation>
+    </message>
+    <message>
+        <location filename="myitemmodel.cpp" line="87"/>
+        <source>Error: cannot connect</source>
+        <translation>错误：不能连接</translation>
     </message>
 </context>
 </TS>

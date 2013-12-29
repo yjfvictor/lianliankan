@@ -21,6 +21,8 @@ public slots:
     void rearrange();
 
 signals:
+    void showMessage(const QString & text, const int timeout = 0);
+    void clearMessage();
 
 private:
     enum Direction { Left, Right, Up, Down };
