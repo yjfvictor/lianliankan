@@ -23,11 +23,15 @@ public slots:
 signals:
 
 private:
+    enum Direction { Left, Right, Up, Down };
+
     void refresh();
     bool selectionCorrect();
+    bool dfs( const int current_row, const int current_column, const Direction direction, const int turning_count = 0 );
 
     static const int rowCount, columnCount;
     Qt::GlobalColor grid[MAX_ROWS][MAX_ROWS];
+    bool visited[MAX_ROWS][MAX_ROWS];
     QTableView * tableView;
 
     int last_selected_row, last_selected_column;

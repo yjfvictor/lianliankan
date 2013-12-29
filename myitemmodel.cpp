@@ -137,5 +137,102 @@ void MyItemModel::rearrange()
 
 bool MyItemModel::selectionCorrect()
 {
-    return grid[last_selected_row][last_selected_column] == grid[current_selected_row][current_selected_column];
+    if ( last_selected_row < 0 )
+        return false;
+
+    Q_ASSERT( current_selected_row >= 0 );
+    Q_ASSERT( current_selected_row < rowCount );
+    Q_ASSERT( current_selected_column >= 0 );
+    Q_ASSERT( current_selected_column < columnCount );
+
+    Q_ASSERT( last_selected_row >= 0 );
+    Q_ASSERT( last_selected_row < rowCount );
+    Q_ASSERT( last_selected_column >= 0 );
+    Q_ASSERT( last_selected_column < columnCount );
+
+    Q_ASSERT( grid[current_selected_row][current_selected_column] != Qt::transparent );
+    Q_ASSERT( grid[last_selected_row][last_selected_column] != Qt::transparent );
+
+    if ( grid[last_selected_row][last_selected_column] != grid[current_selected_row][current_selected_column] )
+        return false;
+
+    for ( int r = 0; r < rowCount; ++ r)
+    {
+            for ( int c = 0; c < columnCount; ++ c)
+                    visited[r][c] = false;
+    }
+    visited[current_selected_row][current_selected_column] = true;
+
+    if ( current_selected_row > 0 )
+    {
+            if ( dfs( current_selected_row - 1, current_selected_column, Up ) )
+                    return true;
+    }
+
+    if ( current_selected_column > 0 )
+    {
+            if ( dfs( current_selected_row, current_selected_column - 1, Left ) )
+                    return true;
+    }
+
+    if ( current_selected_row + 1 < rowCount )
+    {
+            if ( dfs( current_selected_row + 1, current_selected_column, Down ) )
+                    return true;
+    }
+
+    if ( current_selected_column + 1 < columnCount )
+    {
+            if ( dfs( current_selected_row, current_selected_column + 1, Right ) )
+                    return true;
+    }
+    return false;
+}
+
+bool MyItemModel::dfs(const int current_row, const int current_column, const MyItemModel::Direction direction, const int turning_count)
+{
+    Q_ASSERT( current_row >= 0 );
+    Q_ASSERT( current_row < rowCount );
+    Q_ASSERT( current_column >= 0 );
+    Q_ASSERT( current_column < columnCount );
+
+    if ( turning_count > 2 )
+        return false;
+
+    if ( visited[current_row][current_column] )
+        return false;
+    visited[current_row][current_column] = true;
+
+    if ( current_row == last_selected_row and current_column == last_selected_column )
+            return true;
+
+    if ( grid[current_row][current_column] != Qt::transparent )
+            return false;
+
+    if ( current_row > 0 )
+    {
+            if ( dfs( current_row - 1, current_column, Up, ((direction==Up)?turning_count:(turning_count+1)) ) )
+                    return true;
+    }
+
+    if ( current_column > 0 )
+    {
+            if ( dfs( current_row, current_column - 1, Left, ((direction==Left)?turning_count:(turning_count+1)) ) )
+                    return true;
+    }
+
+    if ( current_row + 1 < rowCount )
+    {
+            if ( dfs( current_row + 1, current_column, Down, ((direction==Down)?turning_count:(turning_count+1)) ) )
+                    return true;
+    }
+
+    if ( current_column + 1 < columnCount )
+    {
+            if ( dfs( current_row, current_column + 1, Right, ((direction==Right)?turning_count:(turning_count+1)) ) )
+                    return true;
+    }
+
+    visited[current_row][current_column] = false;
+    return false;
 }
