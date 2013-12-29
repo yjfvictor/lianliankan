@@ -175,11 +175,31 @@ bool MyItemModel::selectionCorrect()
             if ( dfs( current_selected_row - 1, current_selected_column, Up ) )
                     return true;
     }
+    else if ( current_selected_row == 0 )
+    {
+        for(int next_column = 0; next_column < columnCount; ++ next_column)
+        {
+            if ( next_column == current_selected_column )
+                continue;
+            if ( dfs(current_selected_row, next_column, Down, 2 ) )
+                return true;
+        }
+    }
 
     if ( current_selected_column > 0 )
     {
             if ( dfs( current_selected_row, current_selected_column - 1, Left ) )
                     return true;
+    }
+    else if ( current_selected_column == 0 )
+    {
+        for ( int next_row = 0; next_row < rowCount; ++ next_row )
+        {
+            if ( next_row == current_selected_row )
+                continue;
+            if ( dfs( next_row, current_selected_column, Right, 2) )
+                return true;
+        }
     }
 
     if ( current_selected_row + 1 < rowCount )
@@ -187,12 +207,34 @@ bool MyItemModel::selectionCorrect()
             if ( dfs( current_selected_row + 1, current_selected_column, Down ) )
                     return true;
     }
+    else if ( current_selected_row + 1 == rowCount )
+    {
+        for ( int next_column = 0; next_column < columnCount; ++ next_column )
+        {
+            if ( next_column == current_selected_column )
+                continue;
+            if ( dfs( current_selected_row, next_column, Up, 2 ) )
+                return true;
+        }
+    }
 
     if ( current_selected_column + 1 < columnCount )
     {
             if ( dfs( current_selected_row, current_selected_column + 1, Right ) )
                     return true;
     }
+    else if ( current_selected_column + 1 == columnCount )
+    {
+        for ( int next_row = 0; next_row < rowCount; ++ next_row )
+        {
+            if ( next_row == current_selected_row )
+                continue;
+            if ( dfs( next_row, current_selected_column, Left, 2) )
+                return true;
+        }
+    }
+
+
     return false;
 }
 
@@ -221,11 +263,31 @@ bool MyItemModel::dfs(const int current_row, const int current_column, const MyI
             if ( dfs( current_row - 1, current_column, Up, ((direction==Up)?turning_count:(turning_count+1)) ) )
                     return true;
     }
+    else if ( current_row == 0 )
+    {
+        for ( int next_column = 0; next_column < columnCount; ++ next_column )
+        {
+            if ( next_column == current_column )
+                continue;
+            if( dfs(0, next_column, Down, (turning_count + 2) ) )
+                return true;
+        }
+    }
 
     if ( current_column > 0 )
     {
             if ( dfs( current_row, current_column - 1, Left, ((direction==Left)?turning_count:(turning_count+1)) ) )
                     return true;
+    }
+    else if ( current_column == 0 )
+    {
+        for ( int next_row = 0; next_row < rowCount; ++ next_row )
+        {
+            if ( next_row == current_row )
+                continue;
+            if ( dfs(next_row, 0, Right, (turning_count + 2) ) )
+                return true;
+        }
     }
 
     if ( current_row + 1 < rowCount )
@@ -233,11 +295,31 @@ bool MyItemModel::dfs(const int current_row, const int current_column, const MyI
             if ( dfs( current_row + 1, current_column, Down, ((direction==Down)?turning_count:(turning_count+1)) ) )
                     return true;
     }
+    else if ( current_row + 1 == rowCount )
+    {
+        for ( int next_column = 0; next_column < columnCount; ++ next_column )
+        {
+            if ( next_column == current_column )
+                continue;
+            if( dfs(current_row, next_column, Up, (turning_count + 2) ) )
+                return true;
+        }
+    }
 
     if ( current_column + 1 < columnCount )
     {
             if ( dfs( current_row, current_column + 1, Right, ((direction==Right)?turning_count:(turning_count+1)) ) )
                     return true;
+    }
+    else if ( current_column + 1 == columnCount )
+    {
+        for ( int next_row = 0; next_row < rowCount; ++ next_row )
+        {
+            if ( next_row == current_row )
+                continue;
+            if ( dfs(next_row, current_column, Left, (turning_count + 2) ) )
+                return true;
+        }
     }
 
     visited[current_row][current_column] = false;
