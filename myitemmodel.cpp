@@ -99,10 +99,11 @@ void MyItemModel::refresh()
     {
         for ( int c = 0; c < columnCount; ++ c )
         {
-            QPixmap pixmap(100,100);
-            pixmap.fill(QColor(grid[r][c]));
+            //QPixmap pixmap(100,100);
+            //pixmap.fill(QColor(grid[r][c]));
             QIcon buttonIcon;
-            buttonIcon.addPixmap(pixmap);
+            //buttonIcon.addPixmap(pixmap);
+            buttonIcon.addFile(QString(":/photo/image/%1.png").arg(int(grid[r][c])));
             setItem(r,c, new QStandardItem(buttonIcon,QString("")));
         }
     }

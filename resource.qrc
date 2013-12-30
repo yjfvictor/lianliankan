@@ -9,4 +9,14 @@
     <qresource prefix="/trans">
         <file>zh_CN.qm</file>
     </qresource>
+    <qresource prefix="/photo">
+        <file>image/6.png</file>
+        <file>image/7.png</file>
+        <file>image/8.png</file>
+        <file>image/9.png</file>
+        <file>image/10.png</file>
+        <file>image/11.png</file>
+        <file>image/12.png</file>
+        <file>image/13.png</file>
+    </qresource>
 </RCC>

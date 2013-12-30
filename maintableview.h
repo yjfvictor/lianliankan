@@ -15,7 +15,7 @@ signals:
 public slots:
 
 public:
-    void setWidth(int width);
+    void setSize(int size);
 
 };
 

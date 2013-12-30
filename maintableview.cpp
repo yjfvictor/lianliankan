@@ -15,8 +15,13 @@ MainTableView::~MainTableView()
 {
 }
 
-void MainTableView::setWidth(int width)
+void MainTableView::setSize(int size)
 {
     for( int i = 0; i < MAX_ROWS; ++ i )
-        setColumnWidth(i, width);
+    {
+        setRowHeight(i, size);
+        setColumnWidth(i, size);
+        QSize iconSize(size, size);
+        setIconSize(iconSize);
+    }
 }
