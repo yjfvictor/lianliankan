@@ -16,12 +16,16 @@ CONFIG -= app_bundle
 SOURCES += main.cpp\
         mainwindow.cpp \
     myitemmodel.cpp \
-    maintableview.cpp
+    maintableview.cpp \
+    myippartlineedit.cpp \
+    myipaddredit.cpp
 
 HEADERS  += mainwindow.h \
     myitemmodel.h \
     maintableview.h \
-    data.h
+    data.h \
+    myippartlineedit.h \
+    myipaddredit.h
 
 RESOURCES += \
     resource.qrc
