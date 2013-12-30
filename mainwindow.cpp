@@ -66,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(mainTableView);
     setStatusBar(statusBar);
     model->initialze();
+    mainTableView->setWidth(25);
     connect(mainTableView, SIGNAL(clicked(QModelIndex)), model, SLOT(clickSlot(QModelIndex)) );
 
     // 连接模型的信号与本窗口的槽
@@ -73,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(model, SIGNAL(clearMessage()), this, SLOT(clearMessage()));
 
     // 设置窗口大小
-    resize(700, 300);
+    resize(250, 350);
 }
 
 MainWindow::~MainWindow()

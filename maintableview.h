@@ -14,6 +14,9 @@ signals:
 
 public slots:
 
+public:
+    void setWidth(int width);
+
 };
 
 #endif // MAINTABLEVIEW_H

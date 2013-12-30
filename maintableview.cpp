@@ -1,4 +1,5 @@
 #include "maintableview.h"
+#include "data.h"
 #include <QHeaderView>
 
 MainTableView::MainTableView(QWidget *parent) :
@@ -12,4 +13,10 @@ MainTableView::MainTableView(QWidget *parent) :
 
 MainTableView::~MainTableView()
 {
+}
+
+void MainTableView::setWidth(int width)
+{
+    for( int i = 0; i < MAX_ROWS; ++ i )
+        setColumnWidth(i, width);
 }
