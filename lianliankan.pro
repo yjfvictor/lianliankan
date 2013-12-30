@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,15 +17,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     myitemmodel.cpp \
     maintableview.cpp \
-    myippartlineedit.cpp \
-    myipaddredit.cpp
+    myipdlg.cpp \
+    mynetworkcommunication.cpp
 
 HEADERS  += mainwindow.h \
     myitemmodel.h \
     maintableview.h \
     data.h \
-    myippartlineedit.h \
-    myipaddredit.h
+    myipdlg.h \
+    mynetworkcommunication.h
 
 RESOURCES += \
     resource.qrc

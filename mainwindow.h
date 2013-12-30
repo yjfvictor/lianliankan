@@ -7,6 +7,7 @@
 #include <QAction>
 #include "maintableview.h"
 #include "myitemmodel.h"
+#include "mynetworkcommunication.h"
 
 class MainWindow : public QMainWindow
 {
@@ -18,6 +19,7 @@ public:
 public slots:
     void showMessage(const QString & text, const int timeout);
     void clearMessage();
+    void network();
     void about();
     void aboutQt();
 
@@ -29,8 +31,12 @@ private:
     QToolBar * mainToolBar;
     QAction * actionNew;
     QAction * actionRearrange;
+    QAction * actionNetwork;
     QAction * actionAbout;
     QAction * actionAboutQt;
+
+    MyNetworkCommunication * networkCommunication;
+    bool playOnline;
 };
 
 #endif // MAINWINDOW_H

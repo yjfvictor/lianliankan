@@ -1,5 +1,7 @@
-#include "mainwindow.h"
 #include <QMessageBox>
+#include "mainwindow.h"
+#include "myipdlg.h"
+#include "data.h"
 
 int MainWindow::rows = 10;
 int MainWindow::cols = 10;
@@ -12,8 +14,11 @@ MainWindow::MainWindow(QWidget *parent)
       mainToolBar(new QToolBar(this)),
       actionNew(new QAction(this)),
       actionRearrange(new QAction(this)),
+      actionNetwork(new QAction(this)),
       actionAbout(new QAction(this)),
-      actionAboutQt(new QAction(this))
+      actionAboutQt(new QAction(this)),
+      networkCommunication(new MyNetworkCommunication(this)),
+      playOnline(false)
 {
     // 窗口标题栏、图标设置
     setWindowTitle(tr("Lian Lian Kan"));
@@ -38,6 +43,14 @@ MainWindow::MainWindow(QWidget *parent)
     actionRearrange->setIcon(iconRearrange);
     connect(actionRearrange, SIGNAL(triggered()), model, SLOT(rearrange()));
 
+    QIcon iconNetwork;
+    iconNetwork.addFile(QString(":/pic/network.png"), QSize(), QIcon::Normal, QIcon::Off);
+
+    actionNetwork->setText(tr("Online"));
+    actionNetwork->setToolTip(tr("Playing online with other friends"));
+    actionNetwork->setIcon(iconNetwork);
+    connect(actionNetwork, SIGNAL(triggered()), this, SLOT(network()));
+
     QIcon iconAbout;
     iconAbout.addFile(QString(":/pic/about.png"), QSize(), QIcon::Normal, QIcon::Off);
 
@@ -57,6 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     mainToolBar->addAction(actionNew);
     mainToolBar->addAction(actionRearrange);
+    mainToolBar->addAction(actionNetwork);
     mainToolBar->addAction(actionAbout);
     mainToolBar->addAction(actionAboutQt);
     addToolBar(Qt::TopToolBarArea, mainToolBar);
@@ -100,4 +114,28 @@ void MainWindow::about()
 void MainWindow::aboutQt()
 {
     QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+void MainWindow::network()
+{
+    MyIpDlg ipDlg(this);
+    if ( ipDlg.exec() == QDialog::Accepted )
+    {
+        QString ipAddress = ipDlg.getIpAddress();
+        networkCommunication->setIpAddress(ipAddress);
+        networkCommunication->setPort(NETWORK_PORT);
+        networkCommunication->setMessageBoxParent(this);
+        playOnline = true;
+        //networkCommunication->startGame();
+        //actionNew->trigger();
+
+        connect(actionNew, SIGNAL(triggered()), networkCommunication, SLOT(startGame()));
+        connect(actionNew, SIGNAL(triggered()), networkCommunication, SLOT(dealingMessage()));
+        connect(actionNew, SIGNAL(triggered()), networkCommunication, SLOT(tellingMessage()));
+        //actionNew->trigger();
+
+        //disconnect(actionNew, SIGNAL(triggered()), networkCommunication, SLOT(startGame()));
+        //disconnect(actionNew, SIGNAL(triggered()), networkCommunication, SLOT(dealingMessage()));
+        //disconnect(actionNew, SIGNAL(triggered()), networkCommunication, SLOT(tellingMessage()));
+    }
 }

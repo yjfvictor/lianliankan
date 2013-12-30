@@ -253,7 +253,7 @@ bool MyItemModel::dfs(const int current_row, const int current_column, const MyI
         return false;
     visited[current_row][current_column] = true;
 
-    if ( current_row == last_selected_row and current_column == last_selected_column )
+    if ( current_row == last_selected_row && current_column == last_selected_column )
             return true;
 
     if ( grid[current_row][current_column] != Qt::transparent )
