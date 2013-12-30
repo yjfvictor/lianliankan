@@ -18,6 +18,8 @@ public:
 public slots:
     void showMessage(const QString & text, const int timeout);
     void clearMessage();
+    void about();
+    void aboutQt();
 
 private:
     static int rows, cols;
@@ -27,6 +29,8 @@ private:
     QToolBar * mainToolBar;
     QAction * actionNew;
     QAction * actionRearrange;
+    QAction * actionAbout;
+    QAction * actionAboutQt;
 };
 
 #endif // MAINWINDOW_H

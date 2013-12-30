@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <QMessageBox>
 
 int MainWindow::rows = 10;
 int MainWindow::cols = 10;
@@ -10,7 +11,9 @@ MainWindow::MainWindow(QWidget *parent)
       statusBar(new QStatusBar(this)),
       mainToolBar(new QToolBar(this)),
       actionNew(new QAction(this)),
-      actionRearrange(new QAction(this))
+      actionRearrange(new QAction(this)),
+      actionAbout(new QAction(this)),
+      actionAboutQt(new QAction(this))
 {
     // 窗口标题栏、图标设置
     setWindowTitle(tr("Lian Lian Kan"));
@@ -35,9 +38,27 @@ MainWindow::MainWindow(QWidget *parent)
     actionRearrange->setIcon(iconRearrange);
     connect(actionRearrange, SIGNAL(triggered()), model, SLOT(rearrange()));
 
+    QIcon iconAbout;
+    iconAbout.addFile(QString(":/pic/about.png"), QSize(), QIcon::Normal, QIcon::Off);
+
+    actionAbout->setText(tr("About"));
+    actionAbout->setToolTip(tr("About"));
+    actionAbout->setIcon(iconAbout);
+    connect(actionAbout, SIGNAL(triggered()), this, SLOT(about()));
+
+    QIcon iconAboutQt;
+    iconAboutQt.addFile(QString(":/pic/Qt.png"), QSize(), QIcon::Normal, QIcon::Off);
+
+    actionAboutQt->setText(tr("About Qt"));
+    actionAboutQt->setToolTip(tr("About Qt"));
+    actionAboutQt->setIcon(iconAboutQt);
+    connect(actionAboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));
+
 
     mainToolBar->addAction(actionNew);
     mainToolBar->addAction(actionRearrange);
+    mainToolBar->addAction(actionAbout);
+    mainToolBar->addAction(actionAboutQt);
     addToolBar(Qt::TopToolBarArea, mainToolBar);
 
     // 主窗格中的表格
@@ -67,4 +88,15 @@ void MainWindow::showMessage(const QString &text, const int timeout)
 void MainWindow::clearMessage()
 {
     statusBar->clearMessage();
+}
+
+void MainWindow::about()
+{
+    QMessageBox::about(this, tr("About"), tr("Copyright © the fourth group of hnust C++ practice team\n"
+                                             "Ye Jianfei, Wu Congyuan, Luo Yanmao, Li Chenlin, Lu Mujie"));
+}
+
+void MainWindow::aboutQt()
+{
+    QMessageBox::aboutQt(this, tr("About Qt"));
 }

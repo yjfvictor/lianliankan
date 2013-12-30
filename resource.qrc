@@ -3,6 +3,8 @@
         <file>new.png</file>
         <file>victor.ico</file>
         <file>rearrange.png</file>
+        <file>about.png</file>
+        <file>Qt.png</file>
     </qresource>
     <qresource prefix="/trans">
         <file>zh_CN.qm</file>
